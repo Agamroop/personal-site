@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Name — Personal Site</title>
+  <style>
+    :root {
+      --bg: #fafafa;
+      --fg: #111;
+      --muted: #666;
+      --border: #e0e0e0;
+      --accent: #111;
+      --card-bg: #fff;
+      --input-bg: #fff;
+    }
+
+    [data-theme="dark"] {
+      --bg: #111;
+      --fg: #eee;
+      --muted: #999;
+      --border: #2a2a2a;
+      --accent: #eee;
+      --card-bg: #1a1a1a;
+      --input-bg: #1a1a1a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 4rem 1.5rem;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    main {
+      max-width: 480px;
+      width: 100%;
+      position: relative;
+    }
+
+    /* Theme toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.15rem;
+      color: var(--fg);
+      transition: border-color 0.2s, background 0.3s;
+      z-index: 10;
+    }
+
+    .theme-toggle:hover { border-color: var(--muted); }
+
+    /* Avatar */
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: var(--border);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Bio */
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .tagline {
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .bio {
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+    }
+
+    /* Sections */
+    section { margin-bottom: 2.5rem; }
+
+    h2 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    /* Project links */
+    .projects a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--fg);
+      margin-bottom: 0.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .projects a:hover { border-color: var(--muted); }
+
+    .projects .project-name { font-weight: 500; }
+
+    .projects .project-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .projects .arrow {
+      color: var(--muted);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-left: 1rem;
+    }
+
+    /* Social links */
+    .socials {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .socials a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .socials a:hover { color: var(--fg); }
+
+    /* Contact form */
+    form { display: flex; flex-direction: column; gap: 0.75rem; }
+
+    label {
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      background: var(--input-bg);
+      color: var(--fg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, textarea:focus { border-color: var(--muted); }
+
+    textarea { resize: vertical; min-height: 100px; }
+
+    button {
+      align-self: flex-start;
+      padding: 0.6rem 1.5rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    button:hover { opacity: 0.8; }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">☀️</button>
+
+    <!-- Avatar -->
+    <div class="avatar">
+      <!-- Replace src with your photo -->
+      <img src="https://api.dicebear.com/9.x/initials/svg?seed=YN" alt="Avatar">
+    </div>
+
+    <!-- Bio -->
+    <h1>Your Name</h1>
+    <p class="tagline">Software Developer</p>
+    <p class="bio">
+      A short bio about yourself. What you do, what you care about,
+      and what you're currently working on.
+    </p>
+
+    <!-- Projects -->
+    <section>
+      <h2>Projects</h2>
+      <div class="projects">
+        <a href="https://github.com/you/project-one" target="_blank">
+          <div>
+            <span class="project-name">Project One</span>
+            <p class="project-desc">A brief description of this project.</p>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+        <a href="https://github.com/you/project-two" target="_blank">
+          <div>
+            <span class="project-name">Project Two</span>
+            <p class="project-desc">A brief description of this project.</p>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+        <a href="https://github.com/you/project-three" target="_blank">
+          <div>
+            <span class="project-name">Project Three</span>
+            <p class="project-desc">A brief description of this project.</p>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Socials -->
+    <section>
+      <h2>Elsewhere</h2>
+      <div class="socials">
+        <a href="https://github.com/you" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/you" target="_blank">LinkedIn</a>
+        <a href="https://twitter.com/you" target="_blank">Twitter</a>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section>
+      <h2>Get in Touch</h2>
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+
+        <button type="submit">Send</button>
+      </form>
+    </section>
+
+    <footer>&copy; 2026 Your Name</footer>
+  </main>
+
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      toggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('theme', theme);
+    }
+
+    // Init: check saved preference, then system preference
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+      setTheme(saved);
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setTheme('dark');
+    } else {
+      setTheme('light');
+    }
+
+    toggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+  </script>
+</body>
+</html>
