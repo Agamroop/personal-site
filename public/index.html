@@ -268,7 +268,7 @@
     <!-- Contact -->
     <section>
       <h2>Get in Touch</h2>
-      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <form id="contact-form">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" required>
 
@@ -279,6 +279,7 @@
         <textarea id="message" name="message" required></textarea>
 
         <button type="submit">Send</button>
+        <p id="form-status" style="font-size:0.85rem;color:var(--muted);margin-top:0.25rem;"></p>
       </form>
     </section>
 
@@ -286,6 +287,35 @@
   </main>
 
   <script>
+    // Contact form handler
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('form-status');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = 'Sending...';
+      try {
+        const res = await fetch('/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: form.name.value,
+            email: form.email.value,
+            message: form.message.value
+          })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          status.textContent = data.message;
+          form.reset();
+        } else {
+          status.textContent = data.error || 'Something went wrong.';
+        }
+      } catch {
+        status.textContent = 'Failed to send. Please try again.';
+      }
+    });
+
     const toggle = document.getElementById('theme-toggle');
     const html = document.documentElement;
 

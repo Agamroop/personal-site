@@ -1,0 +1,15 @@
+{
+  "name": "personal-site",
+  "version": "1.0.0",
+  "description": "Minimal personal website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
